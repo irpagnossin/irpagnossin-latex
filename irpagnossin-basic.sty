@@ -1,0 +1,41 @@
+% -----------------------------------------------------------------------------------------
+% Utility LaTeX commands
+% Author:  Ivan Ramos Pagnossin
+% Date:    June 2018
+% License: Creative Commons BY-SA International 4.0
+% -----------------------------------------------------------------------------------------
+\ProvidesPackage{irpagnossin-basic}[2018/12/19 v0.1 - Comandos úteis de LaTeX]
+\RequirePackage{siunitx}
+\RequirePackage{ifthen}
+\RequirePackage{xspace}
+
+\providecommand\foreign[1]{\textsl{#1}\xspace} % Estrangeirismo
+\providecommand\etc{\foreign{etc}} % Et cetera
+\providecommand\ie{\foreign{ie}} % Id est
+\providecommand\eg{\foreign{eg}} % Exempli gratia
+\providecommand\etal{\foreign{et al}} % Et alia
+
+\newcommand\measure[2]{\SI{#1}{#2}}
+\newcommand\unit[1]{\si{#1}}
+
+% Introduces a new term, which means it emphasizes it and adds it to index.
+% Examples:
+% \introduce{Bravais lattice} emphasizes ``Bravais lattice'' and add it to index
+% \introduce[lattice]{Bravais lattice} emphasizes ``Bravais lattice'' and adds ``lattice'' to index
+\providecommand\introduce[2][]{%
+    \ifthenelse{\equal{#1}{}}{%
+        \emph{#2}\index{#2}\xspace
+    }{%
+        \emph{#2}\index{#1}\xspace
+    }%
+}
+
+% Raised \cite
+% eg.: \upcite[p.~5]{schrödinger}
+\newcommand{\upcitesize}{\tiny}%
+\newcommand{\upcitecolor}{blue}%
+\newcommand{\upcite}[2][\null]{%
+\ifthenelse{\equal{#1}{\null}}%
+    {\ensuremath{^{\color{\upcitecolor}\mbox{\upcitesize\cite    {#2}}}}}%
+    {\ensuremath{^{\color{\upcitecolor}\mbox{\upcitesize\cite[#1]{#2}}}}}%
+}
