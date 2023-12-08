@@ -1,9 +1,15 @@
 #!/bin/bash
-TARGET=~/texmf/tex/latex/irpagnossin/
+set -e
 
-mkdir -p $TARGET
+TEXMFHOME=$(kpsewhich -var-value TEXMFHOME)
+LATEXHOME="$TEXMFHOME/tex/latex/"
 
-cp *.sty $TARGET
-cp *.cfg $TARGET
+mkdir -p "$LATEXHOME/irpagnossin-basic"
+cp -r irpagnossin-basic/tex/*.sty "$LATEXHOME/irpagnossin-basic"
 
-echo "O pacote foi instalado em $TARGET."
+mkdir -p "$LATEXHOME/irpagnossin-exam"
+cp -r irpagnossin-exam/tex/*.sty "$LATEXHOME/irpagnossin-exam"
+cp -r irpagnossin-exam/tex/*.cfg "$LATEXHOME/irpagnossin-exam"
+
+set +e
+
